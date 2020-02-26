@@ -1,0 +1,3 @@
+[submodule "util_submodules/clipboard_utils"]
+	path = util_submodules/clipboard_utils
+	url = https://github.com/Brandon-Valley/clipboard_utils.git
