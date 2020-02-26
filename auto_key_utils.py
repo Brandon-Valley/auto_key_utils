@@ -18,8 +18,6 @@ from util_submodules.clipboard_utils import clipboard_utils as cu    ; util_subm
 if util_submodule_import_check_count != len(util_submodule_l)    :    raise Exception("ERROR:  You probably added a local util_submodule import without adding it to the util_submodule_l")
 ''' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ '''
     
-    
-
 
 
 import keyboard as k
@@ -27,7 +25,6 @@ from pynput.keyboard import Key
 from pynput.keyboard import Controller
 import time
 import _tkinter
-
 
 
 
@@ -59,6 +56,7 @@ def make_selection(select_mode, num_arrows = None):
 
         keyboard.release(Key.shift)
         
+
 
 # Ctrl + a, copy to clipboard, return clipboard
 def get_selection(deselect_key_str = None, error_on_empty_clipboard = False):
@@ -95,9 +93,6 @@ def make_then_get_selection(select_mode, deselect_key_str = None, error_on_empty
     make_selection(select_mode, num_arrows)
     time.sleep(.3)
     return get_selection(deselect_key_str, error_on_empty_clipboard)
-
-
-
 
 
 
