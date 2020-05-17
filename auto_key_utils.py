@@ -159,8 +159,9 @@ def wait_until_no_keys_pressed():
 
 if __name__ == '__main__':
     print('In Main:  auto_key_utils')
-    
-    print(show_poll_keyboard())
+    time.sleep(2)
+    wait_until_no_keys_pressed()
+#     print(show_poll_keyboard())
 #     print(get_keyboard_input())
     
     
