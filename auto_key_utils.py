@@ -149,6 +149,11 @@ def any_key_pressed(timeout = 0.1):
         raise
     
     
+def wait_until_no_keys_pressed():
+    while(any_key_pressed() == True):
+        pass
+    return
+    
     
     
 
