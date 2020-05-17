@@ -1,8 +1,11 @@
 import keyboard as k
 from pynput.keyboard import Key
 from pynput.keyboard import Controller
+from pynput.keyboard import Listener
 import time
 import _tkinter
+from pynput import keyboard
+from func_timeout import func_timeout, FunctionTimedOut
 
 
 if __name__ == "__main__": 
@@ -11,6 +14,12 @@ else:
     from . usms.clipboard_utils import clipboard_utils as cu
 
 
+
+''' VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV '''
+'''                                                                           
+        Selections
+'''
+''' VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV '''
 
 def make_selection(select_mode, num_arrows = None):
     def shift_home_select():
@@ -80,35 +89,101 @@ def make_then_get_selection(select_mode, deselect_key_str = None, error_on_empty
 
 
 
+''' VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV '''
+'''                                                                           
+        Keyboard
+'''
+''' VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV '''
 
+
+
+
+def show_poll_keyboard():
+    ''' 
+        This func is not used for anything
+        It's just a really good example of how to poll the keyboard
+        Just here for future reference
+    '''
+    def on_press(key):
+        print('{0} pressed'.format(
+            key))
+    
+    def on_release(key):
+        print('{0} release'.format(
+            key))
+        if key == Key.esc:
+            # Stop listener
+            return False
+    
+    # Collect events until released
+    with Listener(
+            on_press=on_press,
+            on_release=on_release) as listener:
+        listener.join()
+
+
+
+def any_key_pressed(timeout = 0.1):
+    def wait_for_key_pressed():
+        def on_press(key):
+            return False
+         
+        def on_release(key):
+            return False
+     
+         
+        listener = keyboard.Listener(
+            on_press=on_press,
+            on_release=on_release)
+        listener.start()
+        listener.join()
+
+    try:
+        doitReturnValue = func_timeout(timeout, wait_for_key_pressed)
+        return True
+     
+    except FunctionTimedOut:
+        return False
+     
+    except Exception as e:
+        raise
+    
+    
+    
+    
 
 if __name__ == '__main__':
     print('In Main:  auto_key_utils')
     
-# #     print(get_select_all())
-    time.sleep(3)
-#     k.press_and_release('shift+home')
-# #     k.press_and_release('home')
-
-
-#     make_selection('end_shift_left_arrow', num_arrows=3)
+    print(show_poll_keyboard())
+#     print(get_keyboard_input())
     
     
-    print(make_then_get_selection('end_shift_left_arrow', num_arrows = 3))
-#     make_selection('end_shift_home', num_arrows=3)
-
-#     k.press('shift')
-#     time.sleep(.3)
-#     k.press_and_release('left arrow')
-#     time.sleep(.3)
+    
+# # #     print(get_select_all())
+#     time.sleep(3)
+# #     k.press_and_release('shift+home')
+# # #     k.press_and_release('home')
 # 
-#     k.press_and_release('left arrow')
-#     time.sleep(.3)
-#     k.press_and_release('left arrow')
-#     time.sleep(.3)
-#     k.release('shift')
-    
-    
+# 
+# #     make_selection('end_shift_left_arrow', num_arrows=3)
+#     
+#     
+#     print(make_then_get_selection('end_shift_left_arrow', num_arrows = 3))
+# #     make_selection('end_shift_home', num_arrows=3)
+# 
+# #     k.press('shift')
+# #     time.sleep(.3)
+# #     k.press_and_release('left arrow')
+# #     time.sleep(.3)
+# # 
+# #     k.press_and_release('left arrow')
+# #     time.sleep(.3)
+# #     k.press_and_release('left arrow')
+# #     time.sleep(.3)
+# #     k.release('shift')
+#     
+#     
 #     k.release('shift')
     
     
