@@ -107,14 +107,14 @@ def make_then_get_selection(select_mode, deselect_key_str = None, error_on_empty
 #     def on_press(key):
 #         print('{0} pressed'.format(
 #             key))
-#     
+#      
 #     def on_release(key):
 #         print('{0} release'.format(
 #             key))
 #         if key == Key.esc:
 #             # Stop listener
 #             return False
-#     
+#      
 #     # Collect events until released
 #     with Listener(
 #             on_press=on_press,
@@ -222,11 +222,36 @@ def wait_until_no_keys_pressed():
     
     
     
+    
+    
+    
+    
+    
+    
+def wait_until_first_release():
+    def on_press(key):
+        pass
+     
+    def on_release(key):
+        return False
+     
+    # Collect events until released
+    with Listener(
+            on_press=on_press,
+            on_release=on_release) as listener:
+        listener.join()    
+    
+    
+    
+    
+    
+    
 
 if __name__ == '__main__':
     print('In Main:  auto_key_utils')
     time.sleep(2)
-    any_key_pressed()
+    wait_until_first_release()
+#     any_key_pressed()
 #     from getkey import getkey, keys
 #     print('getting keys')
 #     key = getkey(blocking = False)
