@@ -169,15 +169,7 @@ def any_key_pressed(timeout = 0.1):
     while(len(keys_pressed) > 0):
         keys_to_remove = []
         print('keys still pressed: ', keys_pressed)
-        for key in keys_pressed:
-            print('                      double checking if key still down: ', key, type(key), just_keyboard.is_pressed(key.replace("'", '')))
-            if not just_keyboard.is_pressed(key.replace("'", '')):
-                print('                                                                    removing by doubble check')
-                keys_to_remove.append(key)
-#                 keys_pressed.remove(key)
 
-        for key in keys_to_remove:
-            keys_pressed.remove(key)
         
     
     
