@@ -88,6 +88,18 @@ def make_then_get_selection(select_mode, deselect_key_str = None, error_on_empty
     return get_selection(deselect_key_str, error_on_empty_clipboard)
 
 
+''' VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV '''
+'''                                                                           
+        Clipboard
+'''
+''' VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV '''
+
+def paste_preserve_clipboard(to_paste):
+    og_cb = cu.get_clipboard()
+    cu.set_clipboard(to_paste)
+    k.press_and_release('ctrl+v')
+    cu.set_clipboard(og_cb)
+
 
 ''' VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV '''
 '''                                                                           
@@ -97,134 +109,6 @@ def make_then_get_selection(select_mode, deselect_key_str = None, error_on_empty
 
 
 
-# 
-# # def show_poll_keyboard():
-# #     ''' 
-# #         This func is not used for anything
-# #         It's just a really good example of how to poll the keyboard
-# #         Just here for future reference
-# #     '''
-# #     def on_press(key):
-# #         print('{0} pressed'.format(
-# #             key))
-# #      
-# #     def on_release(key):
-# #         print('{0} release'.format(
-# #             key))
-# #         if key == Key.esc:
-# #             # Stop listener
-# #             return False
-# #      
-# #     # Collect events until released
-# #     with Listener(
-# #             on_press=on_press,
-# #             on_release=on_release) as listener:
-# #         listener.join()
-# 
-# import keyboard as just_keyboard
-# 
-# def any_key_pressed(timeout = 0.1):
-#     keys_pressed = set()
-# #     def wait_for_key_pressed():
-#     def on_press(key):
-#         
-# #         keys_pressed.append('{0} pressed'.format(key))
-# #         keys_pressed.add(key)
-# 
-# 
-#         raw = ('{}'.format(key))
-#         print('raw: ', raw, type(raw))
-#         keys_pressed.add(raw)
-# 
-#         keys_pressed.add(('{}'.format(key).replace('"', '')))
-#         print('key pressed')
-# #         return False
-#      
-#     def on_release(key):
-# #         keys_pressed.append('{0} released'.format(key))
-# #         keys_pressed.remove(key)
-#         keys_pressed.remove(('{0}'.format(key)))
-# #         return False
-#  
-#      
-#     listener = keyboard.Listener(
-#         on_press=on_press,
-#         on_release=on_release)
-#     
-#     print('before Start')
-#     
-#     from threading import Thread
-#     
-#     thread = Thread(target = listener.start)
-#     thread.start()
-#     print('past thread start')
-#     
-# 
-#     
-# 
-# 
-#     time.sleep(.1)
-#     
-#     
-#     while(len(keys_pressed) > 0):
-#         keys_to_remove = []
-#         print('keys still pressed: ', keys_pressed)
-# 
-#         
-#     
-#     
-#     listener.stop()
-#     thread.join()
-#     print('after thread end')
-# 
-#     return
-# 
-# #     print(keys_pressed)
-# #     if len(keys_pressed) > 0:
-# #         return True
-# #     return False
-#         
-# #         return 'NO KEYS PRESSED'
-# 
-# 
-# #     print(wait_for_key_pressed())
-# #     print(keys_pressed)
-# 
-# #     try:
-# #         doitReturnValue = func_timeout(timeout, wait_for_key_pressed)
-# #         print('doitReturnValue:  ', doitReturnValue)
-# #         return True
-# #      
-# #     except FunctionTimedOut:
-# #         return False
-# #      
-# #     except Exception as e:
-# #         raise
-# #     
-#     
-# def wait_until_no_keys_pressed():
-# #     while(any_key_pressed() == True):
-# #         pass
-# 
-# 
-#     while(True):
-#         print('any_key_pressed(): ' , any_key_pressed())
-# 
-# 
-# #     while(True):
-# #         if any_key_pressed() == False:
-# #             
-# #             
-# #             if any_key_pressed() == False:
-# #                 return
-# 
-# #     return
-#     
-#     
-#     
-#     
-#     
-#     
     
     
     
