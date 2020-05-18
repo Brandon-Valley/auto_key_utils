@@ -98,61 +98,135 @@ def make_then_get_selection(select_mode, deselect_key_str = None, error_on_empty
 
 
 
-def show_poll_keyboard():
-    ''' 
-        This func is not used for anything
-        It's just a really good example of how to poll the keyboard
-        Just here for future reference
-    '''
-    def on_press(key):
-        print('{0} pressed'.format(
-            key))
-    
-    def on_release(key):
-        print('{0} release'.format(
-            key))
-        if key == Key.esc:
-            # Stop listener
-            return False
-    
-    # Collect events until released
-    with Listener(
-            on_press=on_press,
-            on_release=on_release) as listener:
-        listener.join()
+# def show_poll_keyboard():
+#     ''' 
+#         This func is not used for anything
+#         It's just a really good example of how to poll the keyboard
+#         Just here for future reference
+#     '''
+#     def on_press(key):
+#         print('{0} pressed'.format(
+#             key))
+#     
+#     def on_release(key):
+#         print('{0} release'.format(
+#             key))
+#         if key == Key.esc:
+#             # Stop listener
+#             return False
+#     
+#     # Collect events until released
+#     with Listener(
+#             on_press=on_press,
+#             on_release=on_release) as listener:
+#         listener.join()
 
-
+import keyboard as just_keyboard
 
 def any_key_pressed(timeout = 0.1):
-    def wait_for_key_pressed():
-        def on_press(key):
-            return False
-         
-        def on_release(key):
-            return False
-     
-         
-        listener = keyboard.Listener(
-            on_press=on_press,
-            on_release=on_release)
-        listener.start()
-        listener.join()
+    keys_pressed = set()
+#     def wait_for_key_pressed():
+    def on_press(key):
+        
+#         keys_pressed.append('{0} pressed'.format(key))
+#         keys_pressed.add(key)
 
-    try:
-        doitReturnValue = func_timeout(timeout, wait_for_key_pressed)
-        return True
+
+        raw = ('{}'.format(key))
+        print('raw: ', raw, type(raw))
+        keys_pressed.add(raw)
+
+        keys_pressed.add(('{}'.format(key).replace('"', '')))
+        print('key pressed')
+#         return False
      
-    except FunctionTimedOut:
-        return False
+    def on_release(key):
+#         keys_pressed.append('{0} released'.format(key))
+#         keys_pressed.remove(key)
+        keys_pressed.remove(('{0}'.format(key)))
+#         return False
+ 
      
-    except Exception as e:
-        raise
+    listener = keyboard.Listener(
+        on_press=on_press,
+        on_release=on_release)
     
+    print('before Start')
+    
+    from threading import Thread
+    
+    thread = Thread(target = listener.start)
+    thread.start()
+    print('past thread start')
+    
+
+    
+
+
+    time.sleep(.1)
+    
+    
+    while(len(keys_pressed) > 0):
+        keys_to_remove = []
+        print('keys still pressed: ', keys_pressed)
+        for key in keys_pressed:
+            print('                      double checking if key still down: ', key, type(key), just_keyboard.is_pressed(key.replace("'", '')))
+            if not just_keyboard.is_pressed(key.replace("'", '')):
+                print('                                                                    removing by doubble check')
+                keys_to_remove.append(key)
+#                 keys_pressed.remove(key)
+
+        for key in keys_to_remove:
+            keys_pressed.remove(key)
+        
+    
+    
+    listener.stop()
+    thread.join()
+    print('after thread end')
+
+    return
+
+#     print(keys_pressed)
+#     if len(keys_pressed) > 0:
+#         return True
+#     return False
+        
+#         return 'NO KEYS PRESSED'
+
+
+#     print(wait_for_key_pressed())
+#     print(keys_pressed)
+
+#     try:
+#         doitReturnValue = func_timeout(timeout, wait_for_key_pressed)
+#         print('doitReturnValue:  ', doitReturnValue)
+#         return True
+#      
+#     except FunctionTimedOut:
+#         return False
+#      
+#     except Exception as e:
+#         raise
+#     
     
 def wait_until_no_keys_pressed():
-    while(any_key_pressed() == True):
-        pass
-    return
+#     while(any_key_pressed() == True):
+#         pass
+
+
+    while(True):
+        print('any_key_pressed(): ' , any_key_pressed())
+
+
+#     while(True):
+#         if any_key_pressed() == False:
+#             
+#             
+#             if any_key_pressed() == False:
+#                 return
+
+#     return
     
     
     
@@ -160,7 +234,24 @@ def wait_until_no_keys_pressed():
 if __name__ == '__main__':
     print('In Main:  auto_key_utils')
     time.sleep(2)
-    wait_until_no_keys_pressed()
+    any_key_pressed()
+#     from getkey import getkey, keys
+#     print('getting keys')
+#     key = getkey(blocking = False)
+#     print('key: ', key)
+#     print('key: ', key.name)
+#     
+    
+#     import ctypes
+#     
+# #     win32api.G
+# #     print(ctypes.Get)
+#     
+#     print(ctypes.windll.user32.GetKeyboardState(1))
+    
+#     time.sleep(2)
+    
+#     wait_until_no_keys_pressed()
 #     print(show_poll_keyboard())
 #     print(get_keyboard_input())
     
