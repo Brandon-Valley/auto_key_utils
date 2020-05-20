@@ -81,7 +81,7 @@ def get_selection(deselect_key_str = None, error_on_empty_clipboard = False):
     return new_clipboard
 
 
-
+# not tested
 def make_then_get_selection(select_mode, deselect_key_str = None, error_on_empty_clipboard = False, num_arrows = None):
     make_selection(select_mode, num_arrows)
     time.sleep(.3)
