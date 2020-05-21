@@ -1,11 +1,9 @@
-import keyboard as k
+import                      time
+import                      keyboard as k
+from pynput          import keyboard
 from pynput.keyboard import Key
 from pynput.keyboard import Controller
 from pynput.keyboard import Listener
-import time
-import _tkinter
-from pynput import keyboard
-from func_timeout import func_timeout, FunctionTimedOut
 
 
 if __name__ == "__main__": 
@@ -53,10 +51,10 @@ def make_selection(select_mode, num_arrows = None):
 
 # Ctrl + a, copy to clipboard, return clipboard
 def get_selection(deselect_key_str = None, error_on_empty_clipboard = False):
-    
+
     try:
         og_clipboard = cu.get_clipboard()
-    except(_tkinter.TclError):
+    except:
         og_clipboard = ''
         
         
